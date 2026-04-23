@@ -1,6 +1,6 @@
 {
   "name": "elysia-launcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Elysia Studios — Custom Minecraft Launcher",
   "main": "electron/main.js",
   "author": "Elysia Studios",
