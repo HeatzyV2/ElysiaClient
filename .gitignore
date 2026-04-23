@@ -10,6 +10,7 @@ dist/
 
 # Local backups
 .repo-backups/
+Site/assets/downloads/*.exe
 
 # Elysia Client build artifacts
 Elysia-Client/.gradle/
