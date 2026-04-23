@@ -5,10 +5,11 @@
 !define LEGACY_UNINSTALL_PARENT "Software\Microsoft\Windows\CurrentVersion\Uninstall"
 
 Var legacyCleanupCheckbox
-Var legacyInstallCount
+Var legacyCleanupRequested
 Var legacyRootKey
 Var legacyInstallLocation
 Var legacyUninstallString
+Var legacyRegEntryKey
 Var LEGACY_STR_HAYSTACK
 Var LEGACY_STR_NEEDLE
 Var LEGACY_STR_VAR_1
@@ -130,18 +131,6 @@ Function LegacyEntryMatches
     Goto legacyEntryMatchesDone
   ${EndIf}
 
-  !insertmacro LegacyStrContains $1 "Elysia" "$0"
-  ${If} $1 != ""
-    StrCpy $0 "1"
-    Goto legacyEntryMatchesDone
-  ${EndIf}
-
-  !insertmacro LegacyStrContains $1 "elysia" "$0"
-  ${If} $1 != ""
-    StrCpy $0 "1"
-    Goto legacyEntryMatchesDone
-  ${EndIf}
-
   StrCpy $0 "0"
 
 legacyEntryMatchesDone:
@@ -149,59 +138,55 @@ legacyEntryMatchesDone:
   Exch $0
 FunctionEnd
 
-Function CountLegacyInstallsForCurrentRoot
+Function LegacyResolveInstallLocation
   Push $0
-  Push $1
-  Push $2
-  Push $3
-  Push $4
-  Push $5
 
-  StrCpy $0 0
-  StrCpy $1 0
+  ${If} $legacyInstallLocation != ""
+    Goto legacyResolveDone
+  ${EndIf}
 
-legacyCountLoop:
+  ${If} $legacyUninstallString == ""
+    Goto legacyResolveDone
+  ${EndIf}
+
+  Push "$legacyUninstallString"
+  Call LegacyGetInQuotes
+  Pop $0
+  ${If} $0 == ""
+    Goto legacyResolveDone
+  ${EndIf}
+
+  Push $0
+  Call LegacyGetFileParent
+  Pop $legacyInstallLocation
+
+legacyResolveDone:
+  Pop $0
+FunctionEnd
+
+Function LegacyEntryWasRemoved
+  Push $0
+
+  ${If} $legacyRegEntryKey == ""
+    StrCpy $0 "0"
+    Goto legacyEntryWasRemovedDone
+  ${EndIf}
+
   ClearErrors
   ${If} $legacyRootKey == "HKEY_CURRENT_USER"
-    EnumRegKey $2 HKCU "${LEGACY_UNINSTALL_PARENT}" $0
+    ReadRegStr $0 HKEY_CURRENT_USER "${LEGACY_UNINSTALL_PARENT}\$legacyRegEntryKey" "UninstallString"
   ${Else}
-    EnumRegKey $2 HKLM "${LEGACY_UNINSTALL_PARENT}" $0
+    ReadRegStr $0 HKEY_LOCAL_MACHINE "${LEGACY_UNINSTALL_PARENT}\$legacyRegEntryKey" "UninstallString"
   ${EndIf}
+
   ${If} ${Errors}
-    Goto legacyCountDone
-  ${EndIf}
-
-  ${If} $legacyRootKey == "HKEY_CURRENT_USER"
-    ReadRegStr $3 HKEY_CURRENT_USER "${LEGACY_UNINSTALL_PARENT}\$2" "DisplayName"
-    ReadRegStr $4 HKEY_CURRENT_USER "${LEGACY_UNINSTALL_PARENT}\$2" "InstallLocation"
-    ReadRegStr $5 HKEY_CURRENT_USER "${LEGACY_UNINSTALL_PARENT}\$2" "UninstallString"
+    StrCpy $0 "1"
   ${Else}
-    ReadRegStr $3 HKEY_LOCAL_MACHINE "${LEGACY_UNINSTALL_PARENT}\$2" "DisplayName"
-    ReadRegStr $4 HKEY_LOCAL_MACHINE "${LEGACY_UNINSTALL_PARENT}\$2" "InstallLocation"
-    ReadRegStr $5 HKEY_LOCAL_MACHINE "${LEGACY_UNINSTALL_PARENT}\$2" "UninstallString"
+    StrCpy $0 "0"
   ${EndIf}
 
-  ${If} $5 != ""
-    Push "$3|$4|$5"
-    Call LegacyEntryMatches
-    Pop $3
-    ${If} $3 == "1"
-      IntOp $1 $1 + 1
-    ${EndIf}
-  ${EndIf}
-
-  IntOp $0 $0 + 1
-  Goto legacyCountLoop
-
-legacyCountDone:
-  StrCpy $legacyInstallCount $1
-
-  Pop $5
-  Pop $4
-  Pop $3
-  Pop $2
-  Pop $1
-  Pop $0
+legacyEntryWasRemovedDone:
+  Exch $0
 FunctionEnd
 
 Function UninstallLegacyEntry
@@ -214,20 +199,15 @@ Function UninstallLegacyEntry
     Goto legacyUninstallDone
   ${EndIf}
 
+  Call LegacyResolveInstallLocation
+  ${If} $legacyInstallLocation == ""
+    Goto legacyUninstallDone
+  ${EndIf}
+
   Push "$legacyUninstallString"
   Call LegacyGetInQuotes
   Pop $0
   ${If} $0 == ""
-    Goto legacyUninstallDone
-  ${EndIf}
-
-  ${If} $legacyInstallLocation == ""
-    Push $0
-    Call LegacyGetFileParent
-    Pop $legacyInstallLocation
-  ${EndIf}
-
-  ${If} $legacyInstallLocation == ""
     Goto legacyUninstallDone
   ${EndIf}
 
@@ -237,6 +217,7 @@ Function UninstallLegacyEntry
     StrCpy $1 "/currentuser"
   ${EndIf}
 
+  DetailPrint "Suppression d'une ancienne installation Elysia..."
   StrCpy $2 "$PLUGINSDIR\legacy-uninstaller.exe"
   ClearErrors
   CopyFiles /SILENT "$0" "$2"
@@ -294,9 +275,21 @@ legacyRemoveLoop:
     ${If} $5 == "1"
       StrCpy $legacyInstallLocation "$3"
       StrCpy $legacyUninstallString "$4"
+      StrCpy $legacyRegEntryKey "$1"
+      Call LegacyResolveInstallLocation
+      ${If} $legacyInstallLocation == $INSTDIR
+        IntOp $0 $0 + 1
+        Goto legacyRemoveLoop
+      ${EndIf}
+
       Call UninstallLegacyEntry
       Sleep 500
-      Goto legacyRemoveRestart
+
+      Call LegacyEntryWasRemoved
+      Pop $5
+      ${If} $5 == "1"
+        Goto legacyRemoveRestart
+      ${EndIf}
     ${EndIf}
   ${EndIf}
 
@@ -317,45 +310,41 @@ Function LegacyCleanupPageCreate
     Abort
   ${EndIf}
 
-  StrCpy $legacyInstallCount 0
-
-  StrCpy $legacyRootKey "HKEY_CURRENT_USER"
-  Call CountLegacyInstallsForCurrentRoot
-  StrCpy $0 $legacyInstallCount
-
-  StrCpy $legacyRootKey "HKEY_LOCAL_MACHINE"
-  Call CountLegacyInstallsForCurrentRoot
-  IntOp $legacyInstallCount $0 + $legacyInstallCount
-
-  ${If} $legacyInstallCount <= 0
-    Abort
-  ${EndIf}
-
   nsDialogs::Create 1018
   Pop $0
   ${If} $0 == error
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0u 100% 18u "Des anciennes installations Elysia ont été détectées."
+  ${NSD_CreateLabel} 0 0u 100% 18u "Option de nettoyage des anciennes installations Elysia."
   Pop $0
-  ${NSD_CreateLabel} 0 18u 100% 30u "Le setup peut les désinstaller avant d'installer cette nouvelle version pour éviter les doublons dans Windows."
+  ${NSD_CreateLabel} 0 18u 100% 30u "Le setup peut supprimer les autres installations Elysia enregistrees avant de terminer cette installation."
   Pop $0
-  ${NSD_CreateCheckbox} 0 56u 100% 12u "Installer et supprimer les versions Elysia déjà détectées ($legacyInstallCount)"
+  ${NSD_CreateCheckbox} 0 56u 100% 12u "Installer et supprimer les autres versions Elysia"
   Pop $legacyCleanupCheckbox
   ${NSD_Check} $legacyCleanupCheckbox
-  ${NSD_CreateLabel} 0 74u 100% 24u "Recommandé si tu as déjà installé plusieurs builds ou plusieurs chemins différents."
+  ${NSD_CreateLabel} 0 74u 100% 24u "Recommande si tu as deja installe plusieurs builds ou plusieurs chemins differents."
   Pop $0
 
   nsDialogs::Show
 FunctionEnd
 
 Function LegacyCleanupPageLeave
+  StrCpy $legacyCleanupRequested "0"
   ${NSD_GetState} $legacyCleanupCheckbox $0
   ${If} $0 != ${BST_CHECKED}
     Return
   ${EndIf}
 
+  StrCpy $legacyCleanupRequested "1"
+FunctionEnd
+
+Function RunLegacyCleanupIfRequested
+  ${If} $legacyCleanupRequested != "1"
+    Return
+  ${EndIf}
+
+  DetailPrint "Recherche des anciennes installations Elysia..."
   StrCpy $legacyRootKey "HKEY_CURRENT_USER"
   Call RemoveLegacyInstallsForCurrentRoot
 
@@ -365,5 +354,9 @@ FunctionEnd
 
 !macro customPageAfterChangeDir
   Page custom LegacyCleanupPageCreate LegacyCleanupPageLeave
+!macroend
+
+!macro customInstall
+  Call RunLegacyCleanupIfRequested
 !macroend
 !endif
