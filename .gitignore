@@ -11,6 +11,11 @@ dist/
 # Local backups
 .repo-backups/
 Site/assets/downloads/*.exe
+annonce_event.txt
+annonce_sortie.txt
+convert_icon.js
+copy_icon.js
+fix_icon.js
 
 # Elysia Client build artifacts
 Elysia-Client/.gradle/
