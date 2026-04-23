@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "elysia-client",
+  "version": "${version}",
+  "name": "Elysia Client",
+  "description": "Client utility propre pour Elysia.",
+  "authors": [
+    "Elysia Studios"
+  ],
+  "contact": {
+    "homepage": "https://client.elysiastudios.net"
+  },
+  "license": "All Rights Reserved",
+  "icon": "assets/elysia-client/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "net.elysiastudios.ElysiaClient"
+    ],
+    "client": [
+      "net.elysiastudios.client.ElysiaClientClient"
+    ]
+  },
+  "mixins": [
+    "elysia-client.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

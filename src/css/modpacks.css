@@ -1,0 +1,203 @@
+/* modpacks.css — Lunar/Feather style mod pack cards */
+
+.modpacks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.modpack-card {
+    background: rgba(15, 15, 45, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.modpack-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--pack-color, #8b5cf6);
+    opacity: 0.8;
+}
+
+.modpack-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--pack-color, rgba(139, 92, 246, 0.4));
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--pack-color, rgba(139, 92, 246, 0.15));
+}
+
+.modpack-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.modpack-icon {
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.modpack-title h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f0f0ff;
+    margin-bottom: 4px;
+}
+
+.modpack-title p {
+    font-size: 0.8rem;
+    color: #8888aa;
+    line-height: 1.4;
+}
+
+.modpack-mods {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.modpack-mod-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.2s;
+}
+
+.modpack-mod-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.modpack-mod-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #d1d1e0;
+}
+
+.modpack-mod-desc {
+    font-size: 0.75rem;
+    color: #666688;
+    text-align: right;
+    max-width: 55%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modpack-install-btn {
+    width: 100%;
+    padding: 12px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    gap: 8px !important;
+}
+
+/* Tab Buttons */
+.tab-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: #8888aa;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ccc;
+}
+
+.tab-btn.active {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.3);
+    color: #a78bfa;
+}
+
+/* Search bar in mods page */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.search-bar:focus-within {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.search-bar svg {
+    width: 18px;
+    height: 18px;
+    color: #666;
+    flex-shrink: 0;
+}
+
+.search-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #f0f0ff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+.search-bar input::placeholder {
+    color: #555577;
+}
+
+.mods-header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mods-tabs {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.mods-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

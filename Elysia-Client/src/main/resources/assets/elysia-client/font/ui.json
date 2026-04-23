@@ -1,0 +1,20 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "elysia-client:font/elysia_badge.png",
+      "ascent": 9,
+      "height": 10,
+      "chars": [
+        "\ue000"
+      ]
+    },
+    {
+      "type": "ttf",
+      "file": "elysia-client:elysia_ui.ttf",
+      "size": 10,
+      "oversample": 3,
+      "shift": [0, 0]
+    }
+  ]
+}

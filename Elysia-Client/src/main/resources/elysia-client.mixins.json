@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "net.elysiastudios.mixin",
+	"plugin": "net.elysiastudios.mixin.ElysiaMixinPlugin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"client.ClientBrandRetrieverMixin",
+		"client.TitleScreenMixin",
+		"client.ScreenAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

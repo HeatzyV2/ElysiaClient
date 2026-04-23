@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "net.elysiastudios.mixin.client",
+  "plugin": "net.elysiastudios.mixin.ElysiaMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "AvatarRendererMixin",
+    "AttackMixin",
+    "BossBarMixin",
+    "ClientBrandRetrieverMixin",
+    "EffectsOverlayMixin",
+    "EntityRenderDispatcherMixin",
+    "GameRendererMixin",
+    "HotbarMixin",
+    "InventoryAccessor",
+    "PlayerMixin",
+    "ParticleEngineMixin",
+    "PlayerTabOverlayMixin",
+    "ScoreboardMixin",
+    "ScreenAccessor",
+    "ScreenEffectRendererMixin",
+    "TitleScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,286 @@
+/* ═══════════════════════════════════════════
+   BEDROCK EDITION PAGE — Styles
+   ═══════════════════════════════════════════ */
+
+.bedrock-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    min-height: calc(100vh - 180px);
+}
+
+/* Main launch area */
+.bedrock-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.bedrock-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.06) 0%, transparent 60%);
+    animation: bedrockPulse 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes bedrockPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.bedrock-edition-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #22c55e;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+}
+
+.bedrock-edition-badge svg {
+    width: 14px;
+    height: 14px;
+}
+
+.bedrock-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #22c55e 60%, #16a34a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.bedrock-subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 32px;
+    max-width: 400px;
+}
+
+.btn-bedrock-launch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 240px;
+    height: 56px;
+    border: none;
+    border-radius: 28px;
+    cursor: pointer;
+    overflow: hidden;
+    background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80);
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.35), 0 0 40px rgba(34, 197, 94, 0.1);
+    z-index: 1;
+}
+
+.btn-bedrock-launch:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(34, 197, 94, 0.45), 0 0 60px rgba(34, 197, 94, 0.2);
+}
+
+.btn-bedrock-launch:not(:disabled):active {
+    transform: translateY(0);
+}
+
+.btn-bedrock-launch:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+}
+
+.btn-bedrock-launch svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Info cards row */
+.bedrock-info-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.bedrock-info-chip {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    transition: all 0.25s ease;
+}
+
+.bedrock-info-chip:hover {
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.bedrock-info-chip svg {
+    width: 18px;
+    height: 18px;
+    color: #22c55e;
+    flex-shrink: 0;
+}
+
+.bedrock-info-chip .chip-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bedrock-info-chip .chip-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 1px;
+}
+
+/* Sidebar panel */
+.bedrock-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bedrock-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.bedrock-panel:hover {
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+.bedrock-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.bedrock-panel-header svg {
+    width: 18px;
+    height: 18px;
+    color: #22c55e;
+}
+
+.bedrock-panel-header h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bedrock-panel-body {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bedrock-panel-body .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bedrock-panel-body .form-group label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.bedrock-panel-body .form-input {
+    padding: 9px 12px;
+    font-size: 12px;
+}
+
+/* Features list */
+.bedrock-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bedrock-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    transition: background 0.2s;
+}
+
+.bedrock-feature:hover {
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.bedrock-feature-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(34, 197, 94, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bedrock-feature-icon svg {
+    width: 16px;
+    height: 16px;
+    color: #22c55e;
+}
+
+.bedrock-feature-text h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.bedrock-feature-text p {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}

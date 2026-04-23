@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysia Client</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/accounts.css">
+    <link rel="stylesheet" href="css/modpacks.css">
+    <link rel="stylesheet" href="css/social.css">
+    <link rel="stylesheet" href="css/bedrock.css">
+    <link rel="stylesheet" href="css/bedrock.css">
+</head>
+<body>
+    <div id="bg-layer" class="bg-layer"></div>
+    <!-- ═══════════ Custom Titlebar ═══════════ -->
+    <div id="titlebar">
+        <div class="titlebar-logo">
+            <img src="assets/icon.png" class="titlebar-icon-img" alt="Logo" style="width: 16px; height: 16px; object-fit: contain;">
+            <span>Elysia Client</span>
+        </div>
+        <div class="titlebar-controls">
+            <button id="btn-minimize" class="titlebar-btn" title="Réduire">
+                <svg viewBox="0 0 12 12"><rect y="5" width="12" height="2" rx="1"/></svg>
+            </button>
+            <button id="btn-maximize" class="titlebar-btn" title="Agrandir">
+                <svg viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+            <button id="btn-close" class="titlebar-btn titlebar-btn-close" title="Fermer">
+                <svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════ Main Layout ═══════════ -->
+    <div id="app">
+        <!-- SIDEBAR -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/icon.png" class="logo" alt="Logo" style="width: 48px; height: 48px; object-fit: contain;">
+            </div>
+            <div class="sidebar-nav">
+                <button class="nav-btn active" data-page="home" id="nav-home" title="Accueil">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Accueil</span>
+                </button>
+                <button class="nav-btn" data-page="mods" id="nav-mods" title="Mods">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <span>Mods</span>
+                </button>
+                <button class="nav-btn" data-page="resourcepacks" id="nav-resourcepacks" title="Ressources">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2l9 4.9V17L12 22l-9-4.9V7z"/>
+                        <path d="M12 22V12"/>
+                        <path d="M12 12l8.5-4.5"/>
+                        <path d="M12 12L3.5 7.5"/>
+                    </svg>
+                    <span>Ressources</span>
+                </button>
+                <button class="nav-btn" data-page="shaders" id="nav-shaders" title="Shaders">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <span>Shaders</span>
+                </button>
+                <button class="nav-btn" data-page="servers" id="nav-servers" title="Serveurs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                        <path d="M6 8h.01M6 16h.01"/>
+                    </svg>
+                    <span>Serveurs</span>
+                </button>
+                <button class="nav-btn" data-page="settings" id="nav-settings" title="Paramètres">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>Paramètres</span>
+                </button>
+                <button class="nav-btn" data-page="accounts" id="nav-accounts" title="Comptes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>Comptes</span>
+                </button>
+                <button class="nav-btn" data-page="console" id="nav-console" title="Console">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="4 17 10 11 4 5"/>
+                        <line x1="12" y1="19" x2="20" y2="19"/>
+                    </svg>
+                    <span>Console</span>
+                </button>
+                <button class="nav-btn" data-page="social" id="nav-social" title="Amis">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Amis</span>
+                </button>
+                <button class="nav-btn" data-page="bedrock" id="nav-bedrock" title="Bedrock">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="9" y1="3" x2="9" y2="21"></line>
+                        <line x1="15" y1="3" x2="15" y2="21"></line>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="3" y1="15" x2="21" y2="15"></line>
+                    </svg>
+                    <span>Bedrock</span>
+                </button>
+            </div>
+            <div class="user-profile">
+                <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23888%22 stroke-width=%222%22><path d=%22M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2%22/><circle cx=%2212%22 cy=%227%22 r=%224%22/></svg>" alt="User" id="header-avatar" class="avatar">
+                <div class="user-info">
+                    <div class="user-name" id="header-username">Non connecté</div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content area -->
+        <main id="content">
+            <!-- ═══════════ HOME PAGE ═══════════ -->
+            <section id="page-home" class="page active">
+                <div class="home-container">
+                    <!-- Hero -->
+                    <div class="hero">
+                        <div class="hero-glow"></div>
+                        <div class="hero-content">
+                            <h1 class="hero-title">
+                                <span class="hero-title-sub">Bienvenue sur</span>
+                                <span class="hero-title-main">Elysia Client</span>
+                            </h1>
+                            <p class="hero-description">Votre portail vers une expérience Minecraft unique. Connectez-vous et rejoignez l'aventure.</p>
+                        </div>
+
+                        <!-- Play button -->
+                        <div class="play-section">
+                            <button id="btn-play" class="play-btn" disabled>
+                                <div class="play-btn-glow"></div>
+                                <div class="play-btn-ripple" aria-hidden="true"></div>
+                                <div class="play-btn-sheen" aria-hidden="true"></div>
+                                <div class="play-btn-content">
+                                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                    <span id="play-text">JOUER</span>
+                                </div>
+                            </button>
+                            <div id="play-status" class="play-status">
+                                <span id="status-text">Connectez-vous pour jouer</span>
+                            </div>
+                        </div>
+
+                        <!-- Progress bar -->
+                        <div id="progress-container" class="progress-container hidden">
+                            <div class="progress-info">
+                                <span id="progress-label">Téléchargement...</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                            <div class="progress-details">
+                                <span id="progress-speed"></span>
+                                <span id="progress-eta"></span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row: News & Discord -->
+                        <div class="home-bottom-row">
+                            <!-- News Feed -->
+                            <div id="news-container" class="news-container">
+                                <h3 class="news-title">Actualités Minecraft</h3>
+                                <div id="news-feed" class="news-feed">
+                                    <div class="news-loading">
+                                        <div class="spinner" style="border-width: 2px;"></div>
+                                        <span>Chargement...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discord Widget -->
+                            <div id="discord-widget-container" style="flex: 1.2; display: flex; flex-direction: column; gap: 12px;">
+                                <h3 class="news-title" style="color: #7289da; margin-bottom: 0;">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2758-3.68-.2758-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.4214 1.7899 4.7563 2.872 7.0396 3.582a.0775.0775 0 00.0845-.028c.5396-.7384 1.0156-1.5303 1.4235-2.3687a.0758.0758 0 00-.0413-.1052c-.7733-.2928-1.5034-.6544-2.1953-1.0747a.0747.0747 0 01-.0074-.1241c.1481-.1113.2962-.2284.436-.3495a.0722.0722 0 01.0766-.0103c4.545 2.083 9.474 2.083 13.974 0a.0724.0724 0 01.0766.0103c.1398.1211.2879.2382.436.3495a.0747.0747 0 01-.0074.1241c-.6919.4203-1.422.7819-2.1953 1.0747a.0758.0758 0 00-.0413.1052c.4079.8384.8839 1.6303 1.4235-2.3687a.0775.0775 0 00.0845.028c2.2833-.71 4.6182-1.7921 7.0396-3.582a.0824.0824 0 00.0312-.0561c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                                    Notre Discord Officiel
+                                </h3>
+                                <div id="discord-widget" class="discord-widget" style="padding: 0; overflow: hidden; height: 380px; width: 100%; display: flex; flex-direction: column; flex: none;">
+                                    <iframe src="https://discord.com/widget?id=1377337739413950587&theme=dark" width="100%" height="100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="flex: 1;"></iframe>
+                                    <div style="padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05);">
+                                        <a href="https://discord.gg/elysiastudios" target="_blank" class="discord-join-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 12px; padding: 12px; border-radius: 6px; letter-spacing: 0.5px;">
+                                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2758-3.68-.2758-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.4214 1.7899 4.7563 2.872 7.0396 3.582a.0775.0775 0 00.0845-.028c.5396-.7384 1.0156-1.5303 1.4235-2.3687a.0758.0758 0 00-.0413-.1052c-.7733-.2928-1.5034-.6544-2.1953-1.0747a.0747.0747 0 01-.0074-.1241c.1481-.1113.2962-.2284.436-.3495a.0722.0722 0 01.0766-.0103c4.545 2.083 9.474 2.083 13.974 0a.0724.0724 0 01.0766.0103c.1398.1211.2879.2382.436.3495a.0747.0747 0 01-.0074.1241c-.6919.4203-1.422.7819-2.1953 1.0747a.0758.0758 0 00-.0413.1052c.4079.8384.8839 1.6303 1.4235-2.3687a.0775.0775 0 00.0845.028c2.2833-.71 4.6182-1.7921 7.0396-3.582a.0824.0824 0 00.0312-.0561c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                                            REJOINDRE LE DISCORD
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info cards -->
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <div class="info-card-content">
+                                <h3>Version</h3>
+                                <p id="info-version">latest_release</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                </svg>
+                            </div>
+                            <div class="info-card-content">
+                                <h3>Loader</h3>
+                                <p id="info-loader">Vanilla</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                                    <rect x="9" y="9" width="6" height="6"/>
+                                    <line x1="9" y1="1" x2="9" y2="4"/>
+                                    <line x1="15" y1="1" x2="15" y2="4"/>
+                                    <line x1="9" y1="20" x2="9" y2="23"/>
+                                    <line x1="15" y1="20" x2="15" y2="23"/>
+                                    <line x1="20" y1="9" x2="23" y2="9"/>
+                                    <line x1="20" y1="14" x2="23" y2="14"/>
+                                    <line x1="1" y1="9" x2="4" y2="9"/>
+                                    <line x1="1" y1="14" x2="4" y2="14"/>
+                                </svg>
+                            </div>
+                            <div class="info-card-content">
+                                <h3>Mémoire</h3>
+                                <p id="info-memory">2 - 4 GB</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="info-card-content">
+                                <h3>Temps de Jeu</h3>
+                                <p id="info-playtime">0h 0m</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ SETTINGS PAGE ═══════════ -->
+            <section id="page-settings" class="page">
+                <div class="page-header">
+                    <h2>Paramètres</h2>
+                    <p>Configurez votre expérience de jeu</p>
+                </div>
+                <div class="settings-grid">
+                    <!-- Game settings -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+                            </svg>
+                            <h3>Jeu</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label for="setting-version">Version Minecraft</label>
+                                <select id="setting-version" class="form-select">
+                                    <option value="latest_release">Dernière version</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-loader">Mod Loader</label>
+                                <select id="setting-loader" class="form-select">
+                                    <option value="vanilla">Vanilla (Sans mods)</option>
+                                    <option value="elysiaclient" style="color: #8b5cf6; font-weight: bold;">ElysiaClient (Recommandé)</option>
+                                    <option value="forge">Forge</option>
+                                    <option value="neoforge">NeoForge</option>
+                                    <option value="fabric">Fabric</option>
+                                    <option value="quilt">Quilt</option>
+                                    <option value="legacyfabric">Legacy Fabric</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="loader-build-group" style="display:none">
+                                <label for="setting-loader-build">Build du Loader</label>
+                                <input type="text" id="setting-loader-build" class="form-input" value="latest" placeholder="latest ou numéro spécifique">
+                            </div>
+                            <div class="form-group form-group-toggle" style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
+                                <label for="setting-controller-mode">
+                                    Mode Manette
+                                    <span style="display: block; font-size: 11px; color: var(--text-muted); font-weight: normal; margin-top: 4px;">Installe automatiquement les mods requis</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-controller-mode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                            <h3>Performance</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label>RAM Allouée : <span id="ram-value">4 Go</span></label>
+                                <input type="range" id="setting-ram" class="form-range" min="1" max="32" value="4">
+                                <div class="form-hint" id="ram-hint">Mémoire système allouée au jeu</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-jvm-args">Arguments JVM</label>
+                                <input type="text" id="setting-jvm-args" class="form-input" placeholder="-XX:+UseG1GC">
+                            </div>
+                            <div class="form-group form-group-toggle">
+                                <label for="setting-game-booster" style="color: var(--warning);">Game Booster (Priorité Haute)</label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-game-booster">
+                                    <span class="toggle-slider" style="background-color: rgba(255,165,0,0.2);"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Optimisée -->
+                    <div class="settings-card" style="border: 1px solid var(--accent-glow); background: linear-gradient(145deg, rgba(139, 92, 246, 0.05) 0%, rgba(0,0,0,0.1) 100%);">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                            <h3 style="color: var(--accent);">Presets d'Optimisation</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Appliquez des configurations pré-définies basées sur vos besoins ou votre matériel.</p>
+                            
+                            <div class="preset-options" style="display: flex; flex-direction: column; gap: 10px;">
+                                <button id="preset-competitive" class="btn btn-secondary" style="width: 100%; text-align: left; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div style="background: rgba(139, 92, 246, 0.1); padding: 8px; border-radius: 8px; color: var(--accent);">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 13px;">Mode Compétitif</div>
+                                        <div style="font-size: 10px; color: var(--text-muted);">FPS maximum, latence réduite, flags opti.</div>
+                                    </div>
+                                </button>
+
+                                <button id="preset-chill" class="btn btn-secondary" style="width: 100%; text-align: left; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div style="background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 8px; color: #10b981;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 13px;">Mode Normal / Chill</div>
+                                        <div style="font-size: 10px; color: var(--text-muted);">Équilibre entre visuels et performances.</div>
+                                    </div>
+                                </button>
+
+                                <button id="preset-low-end" class="btn btn-secondary" style="width: 100%; text-align: left; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(245,158,11,0.25); background: rgba(245,158,11,0.06);">
+                                    <div style="background: rgba(245, 158, 11, 0.14); padding: 8px; border-radius: 8px; color: #f59e0b;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><path d="M13 2 3 14h8l-1 8 11-13h-8l0-7z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 13px;">Mode PC Faible</div>
+                                        <div style="font-size: 10px; color: var(--text-muted);">Baisse les graphismes, la distance et les effets pour les petits PC.</div>
+                                    </div>
+                                </button>
+
+                                <button id="preset-smart" class="btn btn-primary" style="width: 100%; text-align: left; padding: 12px; display: flex; align-items: center; gap: 12px; background: var(--accent);">
+                                    <div style="background: rgba(255, 255, 255, 0.2); padding: 8px; border-radius: 8px; color: #fff;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                    </div>
+                                    <div style="color: #fff;">
+                                        <div style="font-weight: 700; font-size: 13px;">Mode Intelligent AI</div>
+                                        <div style="font-size: 10px; opacity: 0.8;">Analyse votre config et applique le meilleur profil.</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Java -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 16.98h-5.99c-1.1 0-1.01.92-1.01.92s-.01.93 1.01.93H18"/>
+                                <path d="M9 12.04h7.01c1 0 .99-.93.99-.93S17.01 10.17 16.01 10.17H9"/>
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            </svg>
+                            <h3>Java</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label>Chemin Java</label>
+                                <div class="form-row">
+                                    <input type="text" id="setting-java-path" class="form-input" placeholder="Automatique" readonly>
+                                    <button id="btn-select-java" class="btn btn-secondary">Parcourir</button>
+                                </div>
+                                <div class="form-hint">Laissez vide pour téléchargement automatique</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-java-type">Type Java</label>
+                                <select id="setting-java-type" class="form-select">
+                                    <option value="jre">JRE (Recommandé)</option>
+                                    <option value="jdk">JDK</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Display -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                            <h3>Affichage</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label for="setting-width">Largeur</label>
+                                <input type="number" id="setting-width" class="form-input" placeholder="Auto" min="640">
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-height">Hauteur</label>
+                                <input type="number" id="setting-height" class="form-input" placeholder="Auto" min="480">
+                            </div>
+                            <div class="form-group form-group-toggle">
+                                <label for="setting-fullscreen">Plein écran</label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-fullscreen">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="form-group form-group-toggle">
+                                <label for="setting-close-launch">Fermer au lancement</label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-close-launch">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security & Anti-Cheat -->
+                    <div class="settings-card" style="border: 1px solid rgba(239, 68, 68, 0.3);">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <h3 style="color: var(--danger);">Sécurité & Anti-Cheat</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">Le Mode Legit est recommandé. Il bloque automatiquement les mods et resource packs considérés comme du cheat (X-Ray, Wurst, Meteor...) pour garantir une expérience de jeu saine.</p>
+                            
+                            <div class="form-group form-group-toggle">
+                                <label for="setting-cheat-mode" style="color: #fff;">
+                                    Activer le Mode Anarchie / Cheat
+                                    <span style="display: block; font-size: 11px; color: var(--danger); font-weight: normal; margin-top: 4px;">⚠️ À vos risques et périls</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-cheat-mode">
+                                    <span class="toggle-slider" style="background: rgba(239, 68, 68, 0.2);"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discord RPC -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            <h3>Discord</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group form-group-toggle">
+                                <label for="setting-discord-toggle">Activer Discord RPC</label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-discord-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="form-group" style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
+                                <button id="btn-discord-reconnect" class="btn btn-secondary btn-sm" style="width: 100%;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;margin-right:6px;"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                                    Actualiser les Visuels RPC
+                                </button>
+                                <p class="form-hint" style="margin-top: 6px;">Force la reconnexion pour rafraîchir le logo et les images.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Launcher Updates -->
+                    <div class="settings-card" style="border: 1px solid rgba(52, 211, 153, 0.22);">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            <h3 style="color: #34d399;">Mises à jour</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px;">
+                                Vérifiez les nouvelles versions du launcher, téléchargez-les manuellement, puis redémarrez pour installer.
+                            </p>
+
+                            <div class="updater-meta-grid">
+                                <div class="updater-meta-item">
+                                    <span class="updater-meta-label">Version installée</span>
+                                    <strong id="updater-current-version">-</strong>
+                                </div>
+                                <div class="updater-meta-item">
+                                    <span class="updater-meta-label">Version disponible</span>
+                                    <strong id="updater-available-version">-</strong>
+                                </div>
+                                <div class="updater-meta-item updater-meta-item-wide">
+                                    <span class="updater-meta-label">Dernière vérification</span>
+                                    <strong id="updater-last-checked">Jamais</strong>
+                                </div>
+                            </div>
+
+                            <div class="updater-status-box">
+                                <div class="updater-status-top">
+                                    <span class="updater-status-pill" id="updater-status-badge">Prêt</span>
+                                    <span class="updater-status-message" id="updater-status-text">Prêt à vérifier les mises à jour.</span>
+                                </div>
+                                <div id="updater-progress-wrap" class="updater-progress-wrap hidden">
+                                    <div class="updater-progress-bar">
+                                        <div id="updater-progress-bar" class="updater-progress-bar-fill"></div>
+                                    </div>
+                                    <div id="updater-progress-text" class="updater-progress-text">0%</div>
+                                </div>
+                                <p id="updater-error" class="updater-error hidden"></p>
+                            </div>
+
+                            <div class="updater-actions">
+                                <button id="btn-updater-check" class="btn btn-secondary" style="justify-content: center;">
+                                    Vérifier
+                                </button>
+                                <button id="btn-updater-download" class="btn btn-primary hidden" style="justify-content: center;">
+                                    Télécharger
+                                </button>
+                                <button id="btn-updater-install" class="btn btn-primary hidden" style="justify-content: center;">
+                                    Redémarrer et Installer
+                                </button>
+                            </div>
+
+                            <div id="updater-release-box" class="updater-release-box hidden">
+                                <div class="updater-release-head">
+                                    <strong id="updater-release-name">Nouvelle version</strong>
+                                    <span id="updater-release-date" class="updater-release-date"></span>
+                                </div>
+                                <pre id="updater-release-notes" class="updater-release-notes">Aucune note de version fournie.</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elysia x Discord VIP -->
+                    <div class="settings-card" style="border: 1px solid rgba(88, 101, 242, 0.5); background: linear-gradient(145deg, rgba(15,15,45,0.4) 0%, rgba(88, 101, 242, 0.05) 100%); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(88,101,242,0.2) 0%, transparent 70%); border-radius: 50%;"></div>
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#5865F2" stroke-width="2">
+                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                            </svg>
+                            <h3 style="color: #5865F2; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Elysia x Discord VIP</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">Liez votre compte Discord pour débloquer le Modpack Elysia Ultimate caché, des particules magiques violettes, la couleur d'accentuation Blurple et l'avatar dynamique !</p>
+                            
+                            <div id="discord-vip-unlinked" style="display: flex; justify-content: center;">
+                                <button id="btn-discord-link" class="btn btn-primary" style="background: #5865F2; width: 100%; border: none; font-weight: 600; padding: 12px; gap: 8px;">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                                    Lier mon Discord
+                                </button>
+                            </div>
+
+                            <div id="discord-vip-linked" style="display: none; align-items: center; gap: 16px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: var(--radius-md); border: 1px solid rgba(88, 101, 242, 0.3);">
+                                <img id="discord-vip-avatar" src="" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #5865F2;">
+                                <div style="flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <div id="discord-vip-username" style="font-weight: 700; color: #fff;">Pseudo</div>
+                                        <svg viewBox="0 0 24 24" fill="#5865F2" style="width:16px;height:16px;"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    </div>
+                                    <div style="font-size: 11px; color: #5865F2; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">Membre VIP Actif</div>
+                                </div>
+                                <button id="btn-discord-unlink" class="btn btn-secondary btn-sm" title="Délier">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" style="width:16px;height:16px;margin:0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                            </svg>
+                            <h3>Apparence & Fond d'écran</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label>Image / Vidéo de fond</label>
+                                <div class="form-row">
+                                    <input type="text" id="setting-bg-path" class="form-input" placeholder="Par défaut (dégradé)" readonly>
+                                    <button id="btn-select-bg" class="btn btn-secondary">Parcourir</button>
+                                    <button id="btn-clear-bg" class="btn btn-icon" style="padding: 0 12px; border: 1px solid var(--border-glass);" title="Réinitialiser">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" style="width:16px;height:16px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group" id="bg-blur-group" style="display: none;">
+                                <label>Intensité du flou <span id="bg-blur-value" style="color: var(--accent); font-weight: 600;">0px</span></label>
+                                <input type="range" id="setting-bg-blur" class="slider" min="0" max="20" step="1" value="0">
+                                <p class="form-hint">0 = image nette, 20 = très flou</p>
+                            </div>
+                            <div class="form-group" style="margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px;">
+                                <label>Musique de fond</label>
+                                <div class="form-row" style="margin-bottom: 8px;">
+                                    <input type="text" id="setting-music-path" class="form-input" placeholder="Aucune musique" readonly>
+                                    <button id="btn-select-music" class="btn btn-secondary">Local</button>
+                                    <button id="btn-toggle-music" class="btn btn-icon" style="padding: 0 12px; border: 1px solid var(--border-glass);" title="Lecture/Pause" disabled>
+                                        <svg id="icon-music-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;display:none;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        <svg id="icon-music-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;display:block;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                                    </button>
+                                    <button id="btn-clear-music" class="btn btn-icon" style="padding: 0 12px; border: 1px solid var(--border-glass);" title="Supprimer">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" style="width:16px;height:16px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+
+                                <!-- Streaming Search -->
+                                <div class="music-streaming-section" style="margin-top: 12px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.05);">
+                                    <label style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; display: block;">Recherche YouTube / Streaming</label>
+                                    <div class="form-row">
+                                        <input type="text" id="input-music-search" class="form-input" placeholder="Rechercher un titre, artiste..." style="height: 32px; font-size: 12px;">
+                                        <button id="btn-music-search" class="btn btn-primary btn-sm" style="height: 32px; padding: 0 15px;">Chercher</button>
+                                    </div>
+                                    <div id="music-search-results" style="margin-top: 10px; max-height: 150px; overflow-y: auto; display: none; flex-direction: column; gap: 4px;">
+                                        <!-- Results will be injected here -->
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group" id="music-volume-group" style="display: none; margin-top: 12px;">
+                                    <label>Volume <span id="music-volume-value" style="color: var(--accent); font-weight: 600;">50%</span></label>
+                                    <input type="range" id="setting-music-volume" class="slider" min="0" max="100" step="1" value="50">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Couleur d'accentuation</label>
+                                <div class="theme-colors">
+                                    <button class="theme-color-btn active" data-color="139, 92, 246" style="background: rgb(139, 92, 246);"></button>
+                                    <button class="theme-color-btn" data-color="59, 130, 246" style="background: rgb(59, 130, 246);"></button>
+                                    <button class="theme-color-btn" data-color="16, 185, 129" style="background: rgb(16, 185, 129);"></button>
+                                    <button class="theme-color-btn" data-color="245, 158, 11" style="background: rgb(245, 158, 11);"></button>
+                                    <button class="theme-color-btn" data-color="236, 72, 153" style="background: rgb(236, 72, 153);"></button>
+                                    <!-- Discord VIP Color -->
+                                    <button id="theme-color-discord" class="theme-color-btn" data-color="88, 101, 242" style="background: rgb(88, 101, 242); display: none; box-shadow: 0 0 10px rgba(88,101,242,0.5);" title="Thème Discord VIP"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Import -->
+                    <div class="settings-card" style="border: 1px solid rgba(59, 130, 246, 0.3);">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            <h3 style="color: #3b82f6;">Importer des données</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                                Importez vos paramètres, resource packs et mods depuis un autre launcher (Lunar, Feather, etc.) pour ne pas avoir à tout refaire.
+                            </p>
+                            <button id="btn-open-import" class="btn btn-primary" style="width: 100%; justify-content: center; background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); color: #60a5fa;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Lancer l'Assistant d'Importation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced -->
+                    <div class="settings-card" style="border: 1px solid rgba(239, 68, 68, 0.2);">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <h3 style="color: var(--danger);">Avancé</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <!-- Système Diagnostics -->
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="width:16px;height:16px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                                    Diagnostic Système
+                                </label>
+                                <div id="system-diag" style="margin-top: 8px; background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px;">
+                                        <div style="color: var(--text-muted);">GPU</div>
+                                        <div id="diag-gpu" style="color: #fff; text-align: right; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">-</div>
+                                        <div style="color: var(--text-muted);">CPU</div>
+                                        <div id="diag-cpu" style="color: #fff; text-align: right; font-weight: 600;">-</div>
+                                        <div style="color: var(--text-muted);">Cœurs CPU</div>
+                                        <div id="diag-cores" style="color: #fff; text-align: right; font-weight: 600;">-</div>
+                                        <div style="color: var(--text-muted);">RAM Totale</div>
+                                        <div id="diag-ram" style="color: #fff; text-align: right; font-weight: 600;">-</div>
+                                        <div style="color: var(--text-muted);">RAM Disponible</div>
+                                        <div id="diag-ram-free" style="color: #fff; text-align: right; font-weight: 600;">-</div>
+                                        <div style="color: var(--text-muted); padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.05);">Score Performance</div>
+                                        <div id="diag-score" style="text-align: right; font-weight: 800; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.05);">-</div>
+                                    </div>
+                                </div>
+                                <button id="btn-run-diag" class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 8px; justify-content: center; gap: 6px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                                    Analyser mon PC
+                                </button>
+                            </div>
+
+                            <!-- Optimisation One-Click -->
+                            <div class="form-group" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="width:16px;height:16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                    Optimisation Auto
+                                </label>
+                                <p class="form-hint" style="margin-bottom: 8px;">Analyse ton PC et configure automatiquement la RAM, les flags JVM et le Game Booster pour les meilleures performances.</p>
+                                <button id="btn-auto-optimize" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; gap: 6px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                    Optimiser Automatiquement
+                                </button>
+                                <div id="optimize-result" style="display: none; margin-top: 10px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: var(--radius-sm); padding: 10px; font-size: 11px; color: rgb(16,185,129); line-height: 1.6;"></div>
+                            </div>
+
+                            <!-- Mode PC Faible -->
+                            <div class="form-group form-group-toggle" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <label for="setting-low-perf">
+                                    Mode PC Faible
+                                    <span style="display: block; font-size: 11px; color: var(--text-muted); font-weight: normal; margin-top: 2px;">Optimise aussi Minecraft: graphismes rapides, 4 chunks, particules minimales, RAM/JVM allégés.</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-low-perf">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- Nettoyeur de Cache -->
+                            <div class="form-group" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <label>Nettoyeur de Cache</label>
+                                <p class="form-hint" style="margin-bottom: 8px;">Supprime les fichiers temporaires, logs et rapports de crash inutiles pour libérer de l'espace.</p>
+                                <button id="btn-clear-cache" class="btn btn-primary" style="background: var(--danger); width: 100%;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    Vider le Cache
+                                </button>
+                            </div>
+
+                            <!-- Accès rapide -->
+                            <div class="form-group" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <label>Accès rapide</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+                                    <button id="btn-open-mc-folder" class="btn btn-secondary btn-sm" style="justify-content: center; gap: 6px;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                        Dossier .minecraft
+                                    </button>
+                                    <button id="btn-export-logs" class="btn btn-secondary btn-sm" style="justify-content: center; gap: 6px;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                        Exporter les Logs
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Console Développeur -->
+                            <div class="form-group form-group-toggle" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <label for="setting-dev-console">
+                                    Console Développeur
+                                    <span style="display: block; font-size: 11px; color: var(--text-muted); font-weight: normal; margin-top: 2px;">Ouvre les DevTools d'Electron au démarrage</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-dev-console">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- Réinitialisation -->
+                            <div class="form-group" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(239, 68, 68, 0.15);">
+                                <label style="color: var(--danger);">Zone Dangereuse</label>
+                                <p class="form-hint" style="margin-bottom: 8px;">Réinitialise tous les paramètres du launcher à leurs valeurs par défaut. Cette action est irréversible.</p>
+                                <button id="btn-reset-settings" class="btn btn-secondary btn-sm" style="width: 100%; border-color: rgba(239, 68, 68, 0.3); color: var(--danger); justify-content: center; gap: 6px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                                    Réinitialiser le Launcher
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Snapshots -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                <polyline points="22 2 22 8 16 8"/>
+                            </svg>
+                            <h3>Snapshots</h3>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label>Sauvegarder l'instance actuelle</label>
+                                <div class="form-row">
+                                    <input type="text" id="input-snapshot-name" class="form-input" placeholder="Nom du snapshot">
+                                    <button id="btn-create-snapshot" class="btn btn-primary">Cr&eacute;er</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:12px;">
+                                <label>Snapshots sauvegard&eacute;s</label>
+                                <div id="snapshots-list" style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+                                    <p class="form-hint">Aucun snapshot</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ ACCOUNTS PAGE ═══════════ -->
+            <section id="page-accounts" class="page">
+                <div class="page-header">
+                    <h2>Comptes</h2>
+                    <p>Gérez vos comptes et alternez rapidement</p>
+                </div>
+                
+                <div class="accounts-layout" style="display: flex; gap: 32px; align-items: flex-start; margin-top: 16px;">
+                    <!-- Skin Preview -->
+                    <div class="skin-preview-container" style="flex: 0 0 200px; display: flex; flex-direction: column; align-items: center; background: rgba(15,15,45,0.4); padding: 32px 16px; border-radius: var(--radius-lg); border: 1px solid var(--border-glass);">
+                        <div class="skin-3d" style="width: 160px; height: 320px; position: relative;">
+                            <img id="skin-preview-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: var(--transition);">
+                        </div>
+                        <h3 id="skin-preview-name" style="margin-top: 24px; font-size: 18px; color: #fff;">Steve</h3>
+                        <p id="skin-preview-type" style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Compte Local</p>
+                        <button id="btn-change-skin" class="btn btn-secondary btn-sm" style="display: none; width: 100%; justify-content: center; font-size: 12px; padding: 6px 12px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; margin-right: 6px;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            Changer (.png)
+                        </button>
+                    </div>
+
+                    <!-- Accounts List -->
+                    <div class="accounts-container" style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
+                        <div id="accounts-list" class="accounts-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                            <!-- Filled by JS -->
+                        </div>
+
+                        <div class="accounts-add" style="background: rgba(15,15,45,0.4); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 24px;">
+                            <h3 style="margin-bottom: 16px; font-size: 16px;">Ajouter un compte</h3>
+                            <div class="login-options" style="display: flex; flex-direction: column; gap: 16px;">
+                                <button id="btn-add-microsoft" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; font-size: 14px;">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                        <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                                        <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                                        <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                                        <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+                                    </svg>
+                                    Se connecter avec Microsoft
+                                </button>
+
+                                <div class="offline-form" style="display: flex; gap: 8px;">
+                                    <input type="text" id="input-offline-username" class="form-input" placeholder="Pseudo hors-ligne..." maxlength="16" style="flex: 1;">
+                                    <button id="btn-add-offline" class="btn btn-secondary">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ MODS PAGE ═══════════ -->
+            <section id="page-mods" class="page">
+                <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <h2>Mods & Ressources</h2>
+                        <p>Packs pré-configurés & recherche Modrinth</p>
+                    </div>
+                    <div id="instance-info" style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.15); padding: 6px 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 14px;">
+                        <div style="text-align: right;">
+                            <div id="current-instance-badge" style="font-size: 10px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">Instance Active</div>
+                            <div id="current-instance-path" style="font-size: 11px; color: var(--text-secondary); opacity: 0.8;">Chargement...</div>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button id="btn-switch-instance" class="btn btn-primary btn-sm" style="padding: 4px 10px; font-size: 10px; height: 28px;">Changer</button>
+                            <button id="btn-open-instance-folder" class="btn btn-secondary btn-sm" style="padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mods-container">
+                    <div class="mods-header-actions">
+                        <div class="search-bar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="input-mods-search" placeholder="✨ Trouvez le mod parfait (ex: Sodium, Voice Chat, Iris)...">
+                        </div>
+                        <div class="mods-tabs">
+                            <button id="tab-mods-packs" class="tab-btn active">⚡ Packs</button>
+                            <button id="tab-mods-search" class="tab-btn">Rechercher</button>
+                            <button id="tab-mods-installed" class="tab-btn">Installés (<span id="installed-mods-count">0</span>)</button>
+                        </div>
+                    </div>
+
+                    <!-- Mod Packs View (default) -->
+                    <div id="mods-packs-view">
+                        <div id="modpacks-container" class="modpacks-grid">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Search View -->
+                    <div id="mods-search-view" style="display: none;">
+                        <div id="mods-search-results" class="mods-grid">
+                            <div class="mods-empty" style="padding: 40px; text-align: center;">
+                                <div style="font-size: 40px; margin-bottom: 16px;">🔍</div>
+                                <div style="font-weight: 600; color: #fff; margin-bottom: 8px;">Explorez l'univers des mods</div>
+                                <div style="color: var(--text-muted); font-size: 13px;">Tapez un nom ci-dessus pour découvrir de nouveaux mods compatibles avec votre version.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Installed View -->
+                    <div id="mods-installed-view" style="display: none;">
+                        <div class="installed-actions" style="display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: var(--radius-md);">
+                            <button id="btn-export-pack" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Exporter le Modpack
+                            </button>
+                            <button id="btn-import-pack" class="btn btn-primary btn-sm" style="flex: 1; justify-content: center;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                Importer un Modpack
+                            </button>
+                        </div>
+                        <div id="mods-installed-list" class="mods-list">
+                            <div class="mods-empty">Aucun mod installé.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ SERVERS PAGE ═══════════ -->
+            <section id="page-servers" class="page">
+                <div class="page-header">
+                    <h2>Serveurs Favoris</h2>
+                    <p>Rejoignez vos serveurs multijoueur préférés en un clic</p>
+                </div>
+                
+                <div class="servers-container">
+                    <div class="servers-toolbar">
+                        <button id="btn-add-server" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Ajouter un serveur
+                        </button>
+                    </div>
+
+                    <div id="servers-list" class="servers-grid">
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 16px;"><path d="M5 12h14M12 5l7 7-7 7"/><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/></svg>
+                            <h3>Aucun serveur favori</h3>
+                            <p>Ajoutez un serveur pour voir son statut et vous y connecter rapidement.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Server Modal -->
+                <div id="modal-add-server" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Ajouter un serveur</h3>
+                        <div class="form-group">
+                            <label>Nom du serveur</label>
+                            <input type="text" id="input-server-name" class="form-input" placeholder="ex: Hypixel">
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse du serveur (IP)</label>
+                            <input type="text" id="input-server-ip" class="form-input" placeholder="ex: mc.hypixel.net">
+                        </div>
+                        <div class="modal-actions">
+                            <button id="btn-cancel-server" class="btn btn-secondary">Annuler</button>
+                            <button id="btn-save-server" class="btn btn-primary">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ CONSOLE PAGE ═══════════ -->
+            <section id="page-console" class="page">
+                <div class="page-header">
+                    <h2>Console</h2>
+                    <p>Logs en temps réel du jeu</p>
+                </div>
+                <div class="console-container">
+                    <div class="console-toolbar">
+                        <button id="btn-clear-console" class="btn btn-secondary btn-sm">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            Effacer
+                        </button>
+                    </div>
+                    <div id="console-output" class="console-output">
+                        <div class="console-welcome">
+                            <span class="console-prefix">[Elysia]</span> Console prête. Lancez le jeu pour voir les logs ici.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ SOCIAL PAGE ═══════════ -->
+            <section id="page-social" class="page">
+                <div class="page-header">
+                    <h2>Amis & Social</h2>
+                    <p>Retrouvez vos amis, ajoutez de nouvelles rencontres</p>
+                </div>
+                
+                <div class="social-layout">
+                    <!-- Add Friend Section -->
+                    <div class="social-sidebar">
+                        <div class="social-card">
+                            <h3>Ajouter un ami</h3>
+                            <div class="add-friend-form">
+                                <input type="text" id="input-friend-username" class="form-input" placeholder="Pseudo Minecraft..." maxlength="16">
+                                <button id="btn-add-friend" class="btn btn-primary">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                    Ajouter
+                                </button>
+                            </div>
+                            <p id="add-friend-status" class="form-hint" style="margin-top: 8px;"></p>
+                        </div>
+                    </div>
+
+                    <!-- Friends List Section -->
+                    <div class="social-main">
+                        <div class="social-tabs">
+                            <button class="social-tab active" id="tab-friends-list">Tous les amis</button>
+                            <button class="social-tab" id="tab-friends-requests">Demandes <span id="requests-badge" style="display:none; background:var(--danger); color:#fff; padding:2px 6px; border-radius:10px; font-size:10px; margin-left:4px;">0</span></button>
+                        </div>
+                        
+                        <div id="friends-list" class="friends-grid">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 16px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <h3>Chargement...</h3>
+                            </div>
+                        </div>
+
+                        <div id="requests-list" class="friends-grid" style="display: none;">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 16px;"><path d="M22 11.08V12a10.00 10.00 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <h3>Aucune demande d'ami</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ BEDROCK PAGE ═══════════ -->
+            <section id="page-bedrock" class="page">
+                <div class="page-header">
+                    <h2>Bedrock Edition</h2>
+                    <p>Lancez Minecraft Bedrock directement depuis le launcher.</p>
+                </div>
+                <div class="bedrock-layout">
+                    <!-- Main hero area -->
+                    <div class="bedrock-hero">
+                        <div class="bedrock-edition-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+                            Bedrock Edition
+                        </div>
+                        <h2 class="bedrock-title">Minecraft Bedrock</h2>
+                        <p class="bedrock-subtitle">Lancez la version Windows (Bedrock Edition) de Minecraft depuis votre launcher Elysia.</p>
+
+                        <button class="btn-bedrock-launch" id="btn-bedrock-launch" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <span>JOUER</span>
+                        </button>
+
+                        <div class="bedrock-info-row">
+                            <div class="bedrock-info-chip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <div>
+                                    <div class="chip-label">Statut</div>
+                                    <div class="chip-value" style="display: flex; align-items: center; gap: 6px;">
+                                        <div id="bedrock-status-dot" class="status-dot"></div>
+                                        <span id="bedrock-status-text">Détection...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bedrock-info-chip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                <div>
+                                    <div class="chip-label">Version</div>
+                                    <div class="chip-value" id="bedrock-version">—</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="bedrock-sidebar">
+                        <!-- Quick Connect -->
+                        <div class="bedrock-panel">
+                            <div class="bedrock-panel-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                                <h3>Connexion Rapide</h3>
+                            </div>
+                            <div class="bedrock-panel-body">
+                                <div class="form-group">
+                                    <label for="bedrock-server-name">Nom du Serveur</label>
+                                    <input type="text" id="bedrock-server-name" class="form-input" placeholder="Elysia Server">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bedrock-server-ip">Adresse IP</label>
+                                    <input type="text" id="bedrock-server-ip" class="form-input" placeholder="play.elysia.fr">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bedrock-server-port">Port</label>
+                                    <input type="number" id="bedrock-server-port" class="form-input" placeholder="19132" value="19132">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Features -->
+                        <div class="bedrock-panel">
+                            <div class="bedrock-panel-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <h3>Fonctionnalités</h3>
+                            </div>
+                            <div class="bedrock-panel-body">
+                                <div class="bedrock-features">
+                                    <div class="bedrock-feature">
+                                        <div class="bedrock-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                        </div>
+                                        <div class="bedrock-feature-text">
+                                            <h4>Cross-Play</h4>
+                                            <p>Jouez avec vos amis sur toutes les plateformes.</p>
+                                        </div>
+                                    </div>
+                                    <div class="bedrock-feature">
+                                        <div class="bedrock-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                        </div>
+                                        <div class="bedrock-feature-text">
+                                            <h4>RTX & Shaders</h4>
+                                            <p>Support natif du Ray Tracing NVIDIA RTX.</p>
+                                        </div>
+                                    </div>
+                                    <div class="bedrock-feature">
+                                        <div class="bedrock-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                        </div>
+                                        <div class="bedrock-feature-text">
+                                            <h4>Marketplace</h4>
+                                            <p>Accédez au Marketplace officiel de Mojang.</p>
+                                        </div>
+                                    </div>
+                                    <div class="bedrock-feature">
+                                        <div class="bedrock-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                                        </div>
+                                        <div class="bedrock-feature-text">
+                                            <h4>Performances</h4>
+                                            <p>Optimisé pour tourner sur toutes les configs.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </div>
+
+    <!-- Modal: Instance Selector -->
+    <div id="modal-instance-selector" class="modal hidden">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Sélecteur d'Instance</h3>
+                <button class="modal-close" onclick="document.getElementById('modal-instance-selector').classList.add('hidden')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Choisissez l'instance que vous souhaitez charger. Cela mettra à jour votre version et votre loader automatiquement.</p>
+                <div id="instances-list" class="instances-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto; padding-right: 8px;">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="document.getElementById('modal-instance-selector').classList.add('hidden')">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Import Assistant -->
+    <div id="modal-import-assistant" class="modal hidden">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Assistant d'Importation</h3>
+                <button class="modal-close" onclick="document.getElementById('modal-import-assistant').classList.add('hidden')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="import-step-1">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                    Sélectionnez le launcher source pour importer vos données :
+                </p>
+                <div id="import-launchers-list" style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Rempli par JS -->
+                </div>
+                <div id="import-launchers-loading" style="text-align: center; padding: 30px;">
+                    <div class="spinner" style="width:32px;height:32px;border-width:3px;margin: 0 auto;"></div>
+                    <p style="color: var(--text-muted); margin-top: 12px; font-size: 12px;">Recherche des launchers installés...</p>
+                </div>
+            </div>
+            
+            <div class="modal-body hidden" id="import-step-2">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                    <button class="btn btn-sm btn-secondary" id="btn-import-back">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        Retour
+                    </button>
+                    <h4 style="font-family: var(--font-display); font-size: 15px; color: var(--text-primary);">Configuration de l'import</h4>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.2); border-radius: var(--radius-md); padding: 16px; border: 1px solid var(--border-glass);">
+                    <div class="form-group-toggle" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 13px; font-weight: 500;">Paramètres (options.txt, OptiFine)</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="import-chk-options" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group-toggle" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 13px; font-weight: 500;">Resource Packs</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="import-chk-resourcepacks" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group-toggle" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 13px; font-weight: 500;">Mods</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="import-chk-mods">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group-toggle" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 13px; font-weight: 500;">Configurations (Dossier config)</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="import-chk-config">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="import-instances-container" style="display: none; margin-top: 20px;">
+                    <h4 style="margin-bottom: 8px; font-size: 13px; color: var(--text-secondary); font-weight: 600;">Instance Source</h4>
+                    <select id="import-instance-select" class="form-select" style="width: 100%;"></select>
+                </div>
+            </div>
+
+            <div class="modal-body hidden" id="import-step-3">
+                <div style="text-align: center; padding: 20px;">
+                    <div id="import-progress-container" style="margin-bottom: 24px;">
+                        <div class="spinner" id="import-spinner" style="width:48px;height:48px;border-width:4px;margin: 0 auto 20px;"></div>
+                        <div id="import-success-icon" class="hidden" style="width:64px;height:64px;margin: 0 auto 20px; background: rgba(52, 211, 153, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--success); border: 2px solid rgba(52, 211, 153, 0.2);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:32px;height:32px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <h4 id="import-status-title" style="font-family: var(--font-display); font-size: 18px; margin-bottom: 8px;">Importation...</h4>
+                        <p id="import-status-msg" style="font-size: 13px; color: var(--text-muted);">Initialisation des fichiers...</p>
+                    </div>
+                    
+                    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; margin-bottom: 28px; border: 1px solid var(--border-glass);">
+                        <div id="import-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-dark), var(--accent)); transition: width 0.3s ease;"></div>
+                    </div>
+
+                    <div id="import-finished-actions" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
+                        <button id="btn-import-open-folder" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Voir les fichiers importés
+                        </button>
+                        <button id="btn-import-close" class="btn btn-primary" style="width: 100%; justify-content: center;">Terminer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="import-footer-2" style="display: none;">
+                <button class="btn btn-primary" id="btn-import-confirm" style="width: 100%; justify-content: center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Lancer l'importation
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal: Cheat Mode Warning -->
+    <div id="modal-cheat-warning" class="modal hidden">
+        <div class="modal-content" style="max-width: 500px; border-top: 4px solid var(--danger);">
+            <div class="modal-header">
+                <h3 style="color: var(--danger); display: flex; align-items: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    AVERTISSEMENT SÉVÈRE
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p style="font-weight: bold; margin-bottom: 12px; color: #fff;">Vous êtes sur le point d'activer le Mode Anarchie / Cheat.</p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">En activant ce mode, la sécurité Elysia (Anti-Cheat) sera <strong>totalement désactivée</strong>. Vous pourrez installer des mods comme Meteor, Wurst, ou des packs X-Ray.</p>
+                <div style="background: rgba(239,68,68,0.1); border-left: 3px solid var(--danger); padding: 12px; border-radius: 0 4px 4px 0; margin-bottom: 20px;">
+                    <p style="font-size: 13px; color: #fca5a5; margin: 0; line-height: 1.5;">
+                        <strong>⚠️ RISQUE DE BANNISSEMENT :</strong> Vous assumez la totale responsabilité de vos actes. Vous risquez d'être banni définitivement de la majorité des serveurs multijoueurs. Ce mode est conçu uniquement pour les serveurs anarchie ou privés l'autorisant expressément.<br><br>
+                        <em>Elysia Studios ne pourra en aucun cas être tenu responsable de vos sanctions en jeu.</em>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: space-between;">
+                <button id="btn-cheat-cancel" class="btn btn-secondary">Annuler et rester Legit</button>
+                <button id="btn-cheat-accept" class="btn btn-primary" style="background: var(--danger); border-color: var(--danger);">J'ACCEPTE LES RISQUES</button>
+            </div>
+        </div>
+    </div>
+    <!-- Background particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Notifications -->
+    <div id="notification-container"></div>
+
+    <script type="module" src="js/core/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Node / Electron
+node_modules/
+dist/
+*.log
+
+# Local editor files
+.idea/
+.vscode/
+.DS_Store
+
+# Local backups
+.repo-backups/
+
+# Elysia Client build artifacts
+Elysia-Client/.gradle/
+Elysia-Client/build/
+Elysia-Client/bin/
+Elysia-Client/out/
+Elysia-Client/classes/
+Elysia-Client/run/
+Elysia-Client/hs_err_*.log
+Elysia-Client/replay_*.log
+Elysia-Client/*.hprof
+Elysia-Client/*.jfr
+Elysia-Client/build_errors*.txt

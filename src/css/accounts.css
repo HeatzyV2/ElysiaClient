@@ -1,0 +1,21 @@
+/* Skin Preview Styles */
+.skin-preview-container {
+    transition: var(--transition);
+}
+
+.skin-preview-container:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    border-color: var(--border-glow);
+}
+
+.skin-3d {
+    perspective: 1000px;
+}
+
+.skin-3d img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skin-preview-container:hover .skin-3d img {
+    transform: scale(1.05) translateY(-5px);
+}

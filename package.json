@@ -1,0 +1,60 @@
+{
+  "name": "elysia-launcher",
+  "version": "1.0.0",
+  "description": "Elysia Studios — Custom Minecraft Launcher",
+  "main": "electron/main.js",
+  "author": "Elysia Studios",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HeatzyV2/ElysiaClient.git"
+  },
+  "scripts": {
+    "dev": "electron .",
+    "build": "electron-builder",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
+    "adm-zip": "^0.5.17",
+    "discord-rpc": "^4.0.1",
+    "electron-store": "^11.0.2",
+    "electron-updater": "^6.3.9",
+    "minecraft-java-core": "^4.1.6"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.elysiastudios.launcher",
+    "productName": "Elysia Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "Elysia-Client/build/libs/*.jar",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "Elysia-Client/build/libs/*.jar"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "HeatzyV2",
+        "repo": "ElysiaClient"
+      }
+    ]
+  }
+}
